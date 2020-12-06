@@ -1,5 +1,9 @@
 {
+  "RUNNING-COMMAND": "__all__",
   "IMG_SIZE": 224,
   "n_person": "AUTO",
-  "persons": []
+  "persons": [
+    "wahyu"
+  ],
+  "n_frame":200
 }
