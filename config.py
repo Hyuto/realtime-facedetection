@@ -1,15 +1,20 @@
 from os import path
 from json import dumps, load
-
 class Config(object):
     def __init__(self):
         self.config = {
-            "RUNNING-COMMAND":"__all__",
-            "IMG_SIZE":224,
-            "n_person":"AUTO",
-            "persons":[],
-            "n_frame":200
+            "RUNNING-COMMAND": "__all__",
+            "DATASET-DIR":"dataset/data",
+            "IMG_SIZE": 224,
+            "N_FRAME": 200,
+            "N_PERSON": "AUTO",
+            "PERSONS": [],
+            "MODEL":{
+                "EPOCHS":5,
+                "BATCH-SIZE":32,
+                "VALID-SIZE":0.2
             }
+        }
 
     def to_file(self):
         with open('config.json', 'w') as f:
@@ -26,10 +31,10 @@ class Config(object):
                 except:
                     raise KeyError(f'Invalid arg {x} in config.json')
 
-            if self.config['n_person'].lower() == "auto" and self.config['persons'] == []:
+            if self.config['N_PERSON'].lower() == "auto" and self.config['PERSONS'] == []:
                 raise NotImplementedError("Dataset not generated. Please fill either 'n_person' or 'persons' in config.json")
-            elif type(self.config['n_person']) == int and self.config['persons'] == []:
-                self.config['persons'] = [i for i in range(1, self.config['n_person'] + 1)]
+            elif type(self.config['N_PERSON']) == int and self.config['PERSONS'] == []:
+                self.config['PERSONS'] = [i for i in range(1, self.config['N_PERSON'] + 1)]
 
             return self.config
 

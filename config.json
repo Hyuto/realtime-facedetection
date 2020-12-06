@@ -1,9 +1,15 @@
 {
-  "RUNNING-COMMAND": "__all__",
+  "RUNNING-COMMAND": "live-detector",
+  "DATASET-DIR": "dataset/data",
   "IMG_SIZE": 224,
-  "n_person": "AUTO",
-  "persons": [
-    "wahyu"
+  "N_FRAME": 200,
+  "N_PERSON": "AUTO",
+  "PERSONS": [
+    "Wahyu"
   ],
-  "n_frame":200
+  "MODEL": {
+    "EPOCHS": 5,
+    "BATCH-SIZE": 32,
+    "VALID-SIZE": 0.2
+  }
 }

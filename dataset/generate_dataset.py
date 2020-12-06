@@ -1,9 +1,10 @@
 from time import sleep
 from shutil import rmtree
 from os import mkdir, path
-import cv2, logging
+from logging import info, warning
+import cv2
 
-def TakePic(name:str, DIR:str, SIZE:int, N_FRAME:int, model):
+def TakePic(name:str, DIR:str, SIZE:int, N_FRAME:int, model, src = 0):
     """
     Take all frame of to generate dataset
 
@@ -13,21 +14,23 @@ def TakePic(name:str, DIR:str, SIZE:int, N_FRAME:int, model):
         SIZE (int)   : Image Size
         N_FRAME(int) : time for taking
         model        : faceCascade
+        src          : frame source. Default = 0 [webcam]
     """
-    cap = cv2.VideoCapture(0)
-    count = 0
+    cap = cv2.VideoCapture(src)
+    count = 1
     while(cap.isOpened()):
         ret, frame = cap.read()
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        if (src != 0 and count <= 1) or src == 0:
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         faces = model.detectMultiScale(
-            gray,
-            scaleFactor=1.1,
-            minNeighbors=5,
-            minSize=(30, 30)
-        )
+                    gray,
+                    scaleFactor=1.1,
+                    minNeighbors=5,
+                    minSize=(30, 30)
+                )
 
-        if cv2.waitKey(1) and count >= N_FRAME:
+        if cv2.waitKey(1) and count > N_FRAME:
             break
 
         for (x, y, w, h) in faces:
@@ -35,10 +38,12 @@ def TakePic(name:str, DIR:str, SIZE:int, N_FRAME:int, model):
             cv2.putText(frame, f"Frame taken {count}", (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 2)
             img = gray[y:y+h, x:x+w]
             resize = cv2.resize(img, (SIZE, SIZE))
-            cv2.imwrite(path.join(DIR, f'{count} .jpg'), resize)
-            count += 1
+            if count <= N_FRAME:
+                cv2.imwrite(path.join(DIR, f'{count} .jpg'), resize)
+                count += 1
         
-        cv2.imshow(name, frame)
+        if src == 0:
+            cv2.imshow(name, frame)
 
     cap.release()
     cv2.destroyAllWindows()
@@ -48,30 +53,40 @@ def run(config:dict, DIR:str):
     Run dataset generator
 
     Args:
-        items (list): all person names
+        config (dict): Configuration
         DIR (str): Dataset folder directory
-        SIZE (int): Image size
     """
+    if not path.isdir(DIR):
+        warning('Image data directory not found')
+        info(f'Making new directory for {path.basename(DIR)}')
+        mkdir(DIR)
+    
     count = set()
     faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-    for i, item in enumerate(config['persons']):
-        logging.info(f'Taking data for {item}..')
+    for item in (["0"] + config['PERSONS']):
+        info(f'Taking data for {item}..')
         
         # Look for item dir
         ITEM_DIR = path.join(DIR, item)
         if path.isdir(ITEM_DIR):
-            logging.warning(f'Previous dataset for {item} detected')
-            logging.warning('Deleting previous dataset')
+            warning(f'Previous dataset for {item} detected')
+            warning('Deleting previous dataset')
             rmtree(ITEM_DIR)
         mkdir(ITEM_DIR)
 
-        logging.info(input("Please tap anything if you're ready.."))
+        if item != "0":
+            info(input("Please tap anything if you're ready.."))
 
-        # Take
-        TakePic(item, ITEM_DIR, config['IMG_SIZE'], config['n_frame'], faceCascade)
+            # Take
+            TakePic(item, ITEM_DIR, config['IMG_SIZE'], config['N_FRAME'], faceCascade)
 
-        logging.info(f'Done taking data for {item}')
-        sleep(1)
+            info(f'Done taking data for {item}')
+            sleep(1)
+        else: # Extracting random person face data
+            info("Generating data for random person face..")
+            TakePic(item, ITEM_DIR, config['IMG_SIZE'], config['N_FRAME'], 
+                    faceCascade, src = path.join(DIR, "../random-people.jpeg"))
+            info("Success generating data for random person face..")
 
-    logging.info('Completed generating dataset')
+    info('Completed generating dataset')
