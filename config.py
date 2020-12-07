@@ -10,14 +10,14 @@ class Config(object):
             "IMAGE_DATA":{
                 "SIZE": 224,
                 "N_FRAME_TAKEN": 200,
-                "DIR": "dataset/data",
-                "RANDOM_FACE_SRC_DATA_DIR": "dataset/random_data_src"
+                "DIR": "dataset\\data",
+                "RANDOM_FACE_SRC_DATA_DIR": "dataset\\random_data_src"
             },
             "MODEL": {
                 "EPOCHS": 5,
                 "BATCH_SIZE": 32,
                 "VALID_SIZE": 0.2,
-                "DIR":"models/models",
+                "DIR":"models\\models",
                 "LATEST": None
             }
         }
