@@ -1,18 +1,24 @@
-from os import path
+from os import path, mkdir
+from logging import info, warning
 from json import dumps, load
 class Config(object):
     def __init__(self):
         self.config = {
-            "RUNNING-COMMAND": "__all__",
-            "DATASET-DIR":"dataset/data",
-            "IMG_SIZE": 224,
-            "N_FRAME": 200,
+            "RUNNING_COMMAND": "__all__",
             "N_PERSON": "AUTO",
             "PERSONS": [],
-            "MODEL":{
-                "EPOCHS":5,
-                "BATCH-SIZE":32,
-                "VALID-SIZE":0.2
+            "IMAGE_DATA":{
+                "SIZE": 224,
+                "N_FRAME_TAKEN": 200,
+                "DIR": "dataset/data",
+                "RANDOM_FACE_SRC_DATA_DIR": "dataset/random_data_src"
+            },
+            "MODEL": {
+                "EPOCHS": 5,
+                "BATCH_SIZE": 32,
+                "VALID_SIZE": 0.2,
+                "DIR":"models/models",
+                "LATEST": None
             }
         }
 
@@ -20,21 +26,48 @@ class Config(object):
         with open('config.json', 'w') as f:
             f.write(dumps(self.config, indent=2))
 
+    @staticmethod
+    def validating(act_obj, obj):
+        for x in obj:
+            try:
+                if type(act_obj[x]) == dict:
+                    Config.validating(act_obj[x], obj[x])
+                else:
+                    act_obj[x] = obj[x]
+            except:
+                raise KeyError(f'Invalid arg {x} in config.json')
+
+    @staticmethod
+    def CheckDir(DIR:str, name:str):
+        """
+        Checking if Directory is available
+
+        Args:
+            DIR (str): Directory
+            name (str): Name
+        """
+        if not path.isdir(DIR):
+            warning(f'{name} directory not found')
+            info(f'Making new directory for {path.basename(DIR)}')
+            mkdir(DIR)
+
     def get_config(self):
         if path.isfile('config.json'):
+            info('Setting Configuration..')
             with open('config.json') as f:
                 config = load(f)
 
-            for x in config:
-                try:
-                    self.config[x] = config[x]
-                except:
-                    raise KeyError(f'Invalid arg {x} in config.json')
+            self.validating(self.config, config)
 
             if self.config['N_PERSON'].lower() == "auto" and self.config['PERSONS'] == []:
                 raise NotImplementedError("Dataset not generated. Please fill either 'n_person' or 'persons' in config.json")
             elif type(self.config['N_PERSON']) == int and self.config['PERSONS'] == []:
                 self.config['PERSONS'] = [i for i in range(1, self.config['N_PERSON'] + 1)]
+
+            # Check Directory
+            self.CheckDir(self.config['IMAGE_DATA']['DIR'], 'Image dataset')
+            self.CheckDir(self.config['IMAGE_DATA']['RANDOM_FACE_SRC_DATA_DIR'], 'Random face source data')
+            self.CheckDir(self.config['MODEL']['DIR'], 'Model')
 
             return self.config
 

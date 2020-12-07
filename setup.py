@@ -16,17 +16,22 @@ if __name__ == "__main__":
     elif main == 'run':
         CONFIG = config.get_config()
         
-        if CONFIG['RUNNING-COMMAND'].lower() == '__all__':
-            dataset.generate_dataset.run(CONFIG, CONFIG["DATASET-DIR"])
-            MODEL = models.model.run(CONFIG)
-            detector.detector.Live(MODEL.model, CONFIG)
-        elif CONFIG['RUNNING-COMMAND'].lower() == 'generate-dataset':
-            dataset.generate_dataset.run(CONFIG, CONFIG["DATASET-DIR"])
-        elif CONFIG['RUNNING-COMMAND'].lower() == 'train-evaluate-model':
-            models.model.run(CONFIG, ret = False)
-        elif CONFIG['RUNNING-COMMAND'].lower() == 'live-detector':
-            MODEL = models.model.load_model(path.join('models', 'best-model.h5'))
+        if CONFIG['RUNNING_COMMAND'].lower() == '__all__':
+            dataset.generate_dataset.run(CONFIG)
+            models.model.run(CONFIG)
+            MODEL = models.model.load_model(path.join(CONFIG['MODEL']['DIR'], CONFIG['MODEL']['LATEST']))
             detector.detector.Live(MODEL, CONFIG)
+
+        elif CONFIG['RUNNING_COMMAND'].lower() == 'generate-dataset':
+            dataset.generate_dataset.run(CONFIG)
+
+        elif CONFIG['RUNNING_COMMAND'].lower() == 'train-evaluate-model':
+            models.model.run(CONFIG, ret = False)
+
+        elif CONFIG['RUNNING_COMMAND'].lower() == 'live-detection':
+            MODEL = models.model.load_model(path.join(CONFIG['MODEL']['DIR'], CONFIG['MODEL']['LATEST']))
+            detector.detector.Live(MODEL, CONFIG)
+            
         else:
             raise EnvironmentError("Invalid RUNNING-COMMAND!")
     else:
