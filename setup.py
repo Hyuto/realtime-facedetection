@@ -1,6 +1,11 @@
 from sys import argv
 from coloredlogs import install
 from config import *
+
+from os import environ
+environ['OPENCV_VIDEOIO_PRIORITY_MSMF'] = '0'
+environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 import dataset.generate_dataset
 import models.model
 import detector.detector

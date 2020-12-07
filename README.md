@@ -70,4 +70,8 @@ Save the changes of `config.json` in windows you can type `CTRL+S` for shortcut 
 python setup.py run
 ```
 
-that's it all you've to do now is follow the instruction on your terminal. Happy hacking :)
+that's it all you've to do now is follow the instruction on your terminal.
+
+Example Log:
+
+![Example Log]()

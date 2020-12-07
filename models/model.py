@@ -1,5 +1,4 @@
-from os import environ, path, listdir
-environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+from os import path, listdir
 from json import dumps
 from logging import info, warning
 from tensorflow.keras.models import Sequential, load_model
