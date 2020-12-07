@@ -23,8 +23,6 @@ def TakePic(LIST_DIR:list, TO_DIR:str, SIZE:int, N_FRAME:int, model):
             faces = model.detectMultiScale(gray, scaleFactor = 1.1, 
                                         minNeighbors = 5, minSize = (30, 30))
             for (x, y, w, h) in faces:
-                cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
-                cv2.putText(image, f"Frame taken {count}", (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 2)
                 img = gray[y:y+h, x:x+w]
                 resize = cv2.resize(img, (SIZE, SIZE))
                 if count <= N_FRAME:
@@ -32,6 +30,7 @@ def TakePic(LIST_DIR:list, TO_DIR:str, SIZE:int, N_FRAME:int, model):
                     count += 1
                 else:
                     break
+            cv2.destroyAllWindows()
 
 def TakeVid(name:str, DIR:str, SIZE:int, N_FRAME:int, model):
     """

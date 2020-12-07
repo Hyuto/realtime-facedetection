@@ -56,7 +56,7 @@ class Config(object):
             info('Setting Configuration..')
             with open('config.json') as f:
                 config = load(f)
-
+                
             self.validating(self.config, config)
 
             if self.config['N_PERSON'].lower() == "auto" and self.config['PERSONS'] == []:
