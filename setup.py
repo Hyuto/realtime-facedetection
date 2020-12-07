@@ -3,6 +3,7 @@ from coloredlogs import install
 from config import *
 
 from os import environ
+saved_environ = {x:environ[x] for x in ['OPENCV_VIDEOIO_PRIORITY_MSMF', 'TF_CPP_MIN_LOG_LEVEL']}
 environ['OPENCV_VIDEOIO_PRIORITY_MSMF'] = '0'
 environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
@@ -41,3 +42,6 @@ if __name__ == "__main__":
             raise EnvironmentError("Invalid RUNNING-COMMAND!")
     else:
         raise EnvironmentError("Command didn't exist!")
+
+    for x in saved_environ:
+        environ[x] = saved_environ[x]

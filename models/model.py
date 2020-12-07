@@ -38,7 +38,7 @@ class Model:
 
     def train_and_evaluate(self, CONFIG):
         info("Get and spliting image data..")
-        datagen = ImageDataGenerator(rescale = 1./255, rotation_range = 15, validation_split = CONFIG["MODEL"]["VALID_SIZE"])
+        datagen = ImageDataGenerator(rescale = 1./255, rotation_range = 5, validation_split = CONFIG["MODEL"]["VALID_SIZE"])
 
         train = datagen.flow_from_directory(CONFIG["IMAGE_DATA"]["DIR"], target_size = (CONFIG['IMAGE_DATA']['SIZE'], CONFIG['IMAGE_DATA']['SIZE']),
                                             batch_size = CONFIG["MODEL"]["BATCH_SIZE"], class_mode = "categorical", 

@@ -19,6 +19,7 @@ Live detection using trained model via `webcam`
 ## Clone This Repositories
 You can clone this repositories via download by `ZIP`  or via `git`
 
+### Git
 Bash & CMD
 ```
 git clone https://github.com/Hyuto/realtime-facedetection.git && cd realtime-facedetection
@@ -74,4 +75,4 @@ that's it all you've to do now is follow the instruction on your terminal.
 
 Example Log:
 
-![Example Log]()
+![Example Log](static/Example%20Log.png)
