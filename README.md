@@ -17,17 +17,11 @@ Make a model using extracted facial image data to classified items using `Keras`
 Live detection using trained model via `webcam`
 
 ## Clone This Repositories
-You can clone this repositories via download by `ZIP`  or via `git`
 
-### Git
-Bash & CMD
-```
-git clone https://github.com/Hyuto/realtime-facedetection.git && cd realtime-facedetection
-```
+You can clone this repositories via download by `ZIP` or via `git`
 
-Powershell
 ```
-git clone https://github.com/Hyuto/realtime-facedetection.git; cd realtime-facedetection;
+git clone https://github.com/Hyuto/realtime-facedetection.git
 ```
 
 ## Install Requirements
