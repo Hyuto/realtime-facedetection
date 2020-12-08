@@ -32,6 +32,8 @@ git clone https://github.com/Hyuto/realtime-facedetection.git; cd realtime-faced
 
 ## Install Requirements
 
+> :warning: **Stable and Strong Internet Connection Needed**: If you haven't installed `tensorflow` and `Open CV` it would take roughly **600MB** to install
+
 Install requirements via pip
 
 ```
