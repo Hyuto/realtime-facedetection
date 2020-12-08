@@ -34,9 +34,13 @@ Install requirements via pip
 pip install -r requirements.txt
 ```
 
+## Magic in `config.json`
+
+`config.json` is all you need to setup your running environment find more about it [Here](https://github.com/Hyuto/realtime-facedetection/wiki/Magic-config.json) 
+
 ## Quick Setup
 
-> Absolute beginners tutorial [here](https://github.com/Hyuto/realtime-facedetection/wiki/For-Absolute-Beginners)
+> Absolute beginners tutorial [Here](https://github.com/Hyuto/realtime-facedetection/wiki/For-Absolute-Beginners)
 
 Make sure you've already clone this repositories and installed the requirements. 
 
