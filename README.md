@@ -42,6 +42,8 @@ pip install -r requirements.txt
 
 ## Quick Setup
 
+> Absolute beginners tutorial [here](https://github.com/Hyuto/realtime-facedetection/wiki/For-Absolute-Beginners)
+
 Make sure you've already clone this repositories and installed the requirements. 
 
 1 Open terminal and cd to `realtime-facedetection` folder
