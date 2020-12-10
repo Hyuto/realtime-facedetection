@@ -1,6 +1,7 @@
-from os import path, listdir
-from json import dumps
-from logging import info, warning
+from .. import dumps
+from .. import path, listdir
+from .. import info, warning
+
 from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import Dense, Activation, Flatten, Dropout, Conv2D, MaxPooling2D
 from tensorflow.keras.callbacks import ModelCheckpoint
@@ -68,10 +69,3 @@ class Model:
             f.write(dumps(CONFIG, indent=2))
 
         info('Modelling Process Completed')
-
-def run(CONFIG):
-    n_class = len(CONFIG['PERSONS']) + 1
-    
-    info("Start Modelling Process..")
-    model = Model(n_class)
-    model.train_and_evaluate(CONFIG)

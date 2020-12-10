@@ -1,6 +1,7 @@
-from os import path, mkdir
-from logging import info, warning
-from json import dumps, load
+from . import path, mkdir
+from . import info, warning
+from . import dumps, load
+
 class Config(object):
     def __init__(self):
         self.config = {

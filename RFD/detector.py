@@ -1,5 +1,6 @@
-import cv2, time
-from logging import info, warning
+import time
+from . import cv2
+from . import info, warning
 from tensorflow import reshape, argmax
 
 def Live(model, CONFIG):
