@@ -8,17 +8,18 @@ class Config(object):
             "RUNNING_COMMAND": "__all__",
             "N_PERSON": "AUTO",
             "PERSONS": [],
-            "IMAGE_DATA":{
+            "OUTPUT_DIR": "output",
+            "IMAGE_DATA": {
                 "SIZE": 224,
                 "N_FRAME_TAKEN": 200,
-                "DIR": "dataset\\data",
-                "RANDOM_FACE_SRC_DATA_DIR": "dataset\\random_data_src"
+                "DIR": "output\\Image Data",
+                "RANDOM_FACE_SRC_DATA_DIR": "RFD\\dataset\\random_data_src"
             },
             "MODEL": {
                 "EPOCHS": 5,
                 "BATCH_SIZE": 32,
                 "VALID_SIZE": 0.2,
-                "DIR":"models\\models",
+                "DIR": "output\\Models",
                 "LATEST": None
             }
         }
@@ -66,6 +67,7 @@ class Config(object):
                 self.config['PERSONS'] = [i for i in range(1, self.config['N_PERSON'] + 1)]
 
             # Check Directory
+            self.CheckDir(self.config['OUTPUT_DIR'], 'Output Directory')
             self.CheckDir(self.config['IMAGE_DATA']['DIR'], 'Image dataset')
             self.CheckDir(self.config['IMAGE_DATA']['RANDOM_FACE_SRC_DATA_DIR'], 'Random face source data')
             self.CheckDir(self.config['MODEL']['DIR'], 'Model')
