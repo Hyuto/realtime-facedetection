@@ -9,7 +9,9 @@ a realtime face detection using `Open CV`, `Keras`, & `Tensorflow`.
 1. Facial Image Data Extraction<br>
 Extracting target facial image with `webcam` by `Open CV`.
 
-![test](static/test.png)
+<p align="center">
+  <img src="static/test.png" alt="test" width=500 height=450 />
+</p>
 
 1. Modelling<br>
 Make a model using extracted facial image data to classified items using `Keras` & `Tensorflow`
