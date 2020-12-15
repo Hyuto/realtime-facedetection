@@ -1,7 +1,9 @@
+# Import libs
 from sys import argv
 from logging import error
 from coloredlogs import install
 
+# RFD
 from RFD.config import *
 import RFD.dataset
 import RFD.models

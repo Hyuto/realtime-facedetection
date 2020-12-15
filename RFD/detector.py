@@ -3,7 +3,14 @@ from . import cv2
 from . import info, warning
 from tensorflow import reshape, argmax
 
-def Live(model, CONFIG):
+def Live(model, CONFIG:dict):
+    """
+    Live detector setup
+
+    Args:
+        model  : Keras model that already have been trained
+        CONFIG : Configurations
+    """
     info('Setting environments for live detection')
     labels_dict = {0: 'unknown'}
     color_dict = {0: (0,0,255)}

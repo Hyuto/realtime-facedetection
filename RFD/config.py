@@ -3,6 +3,9 @@ from . import info, warning
 from . import dumps, load
 
 class Config(object):
+    """
+    Setup & Validate configuration for `config.json`
+    """
     def __init__(self):
         self.config = {
             "RUNNING_COMMAND": "__all__",
@@ -25,11 +28,24 @@ class Config(object):
         }
 
     def to_file(self):
+        """
+        Render new `config.json` file
+        """
         with open('config.json', 'w') as f:
             f.write(dumps(self.config, indent=2))
 
     @staticmethod
-    def validating(act_obj, obj):
+    def validating(act_obj, obj:dict):
+        """
+        Validating `config.json`
+
+        Args:
+            act_obj      : Object from `config.json`
+            obj ([dict]) : True Object
+
+        Raises:
+            KeyError: If there's any object on `config.json` that not registered on system actual config
+        """
         for x in obj:
             try:
                 if type(act_obj[x]) == dict:
@@ -45,15 +61,21 @@ class Config(object):
         Checking if Directory is available
 
         Args:
-            DIR (str): Directory
-            name (str): Name
+            DIR (str)  : Directory
+            name (str) : Name
         """
         if not path.isdir(DIR):
             warning(f'{name} directory not found')
             info(f'Making new directory for {path.basename(DIR)}')
             mkdir(DIR)
 
-    def get_config(self):
+    def get_config(self) -> dict:
+        """
+        Get configuration setup from `config.json`
+
+        Returns:
+            [dict]: Ready to go CONFIGURATIONS
+        """
         if path.isfile('config.json'):
             info('Setting Configuration..')
             with open('config.json') as f:
