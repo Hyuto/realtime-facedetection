@@ -13,10 +13,10 @@ Extracting target facial image with `webcam` by `Open CV`.
   <img src="static/test.png" alt="test" width=500 height=450 />
 </p>
 
-1. Modelling<br>
+2. Modelling<br>
 Make a model using extracted facial image data to classified items using `Keras` & `Tensorflow`
 
-1. Live Detection<br>
+3. Live Detection<br>
 Live detection using trained model via `webcam`
 
 ## Clone This Repositories
