@@ -10,7 +10,7 @@ a realtime face detection using `Open CV`, `Keras`, & `Tensorflow`.
 Extracting target facial image with `webcam` by `Open CV`.
 
 <p align="center">
-  <img src="static/test.png" alt="test" width=500 height=450 />
+  <img src="assets/test.png" alt="test" width=500 height=450 />
 </p>
 
 2. Modelling<br>
@@ -58,7 +58,7 @@ notepad config.json
 
 3 Add value inside array of `PERSONS`<br>
 You can fill it by your name or some other more.<br>
-![Set PERSONS name](static/set%20person%20name.png)<br>
+![Set PERSONS name](assets/set%20person%20name.png)<br>
 you can set it for more than 1 person by adding their names.
 
 ```json
@@ -80,4 +80,4 @@ that's it all you've to do now is follow the instruction on your terminal.
 
 Example Log:
 
-![Example Log](static/Example%20Log.png)
+![Example Log](assets/Example%20Log.png)
