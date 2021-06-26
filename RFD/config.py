@@ -1,6 +1,6 @@
-from . import path, mkdir
-from . import info, warning
-from . import dumps, load
+from os import path, mkdir
+from logging import info, warning
+from json import dumps, load
 
 class Config(object):
     """
@@ -15,14 +15,14 @@ class Config(object):
             "IMAGE_DATA": {
                 "SIZE": 224,
                 "N_FRAME_TAKEN": 200,
-                "DIR": "output\\Image Data",
-                "RANDOM_FACE_SRC_DATA_DIR": "RFD\\dataset\\random_data_src"
+                "DIR": "output/Image Data",
+                "RANDOM_FACE_SRC_DATA_DIR": "RFD/dataset/random_data_src"
             },
             "MODEL": {
                 "EPOCHS": 5,
                 "BATCH_SIZE": 32,
                 "VALID_SIZE": 0.2,
-                "DIR": "output\\Models",
+                "DIR": "output/Models",
                 "LATEST": None
             }
         }
@@ -72,9 +72,6 @@ class Config(object):
     def get_config(self) -> dict:
         """
         Get configuration setup from `config.json`
-
-        Returns:
-            [dict]: Ready to go CONFIGURATIONS
         """
         if path.isfile('config.json'):
             info('Setting Configuration..')
@@ -94,7 +91,33 @@ class Config(object):
             self.CheckDir(self.config['IMAGE_DATA']['RANDOM_FACE_SRC_DATA_DIR'], 'Random face source data')
             self.CheckDir(self.config['MODEL']['DIR'], 'Model')
 
-            return self.config
-
         else:
             raise EnvironmentError("file config.json didn't exist, please run with args get-config to get it.")
+
+    def get_commands(self) -> dict:
+        """
+        Prepare runable command
+
+        Raises:
+            KeyError: Invalid RUNNING_COMMAND!
+
+        Returns:
+            dict: runable command
+        """
+        # Get good to go configurations
+        self.get_config()
+
+        validate = lambda x : x in ['generate-dataset', 'train-evaluate-model', 'live-detection']
+        if type(self.config['RUNNING_COMMAND']) == str:
+            if self.config['RUNNING_COMMAND'].lower() == '__all__':
+                return ['generate-dataset', 'train-evaluate-model', 'live-detection']
+            elif validate(self.config['RUNNING_COMMAND'].lower()):
+                return [self.config['RUNNING_COMMAND'].lower()]
+        elif type(self.config['RUNNING_COMMAND']) == list:
+            self.config['RUNNING_COMMAND'] = [x.lower() for x in self.config['RUNNING_COMMAND']]
+            if len(self.config['RUNNING_COMMAND']) == 1:
+                self.config['RUNNING_COMMAND'] = self.config['RUNNING_COMMAND'][0]
+                return get_commands(self.config)
+            elif '__all__' not in self.config['RUNNING_COMMAND'] and all([validate(x) for x in self.config['RUNNING_COMMAND']]):
+                return self.config['RUNNING_COMMAND']
+        raise KeyError("Invalid RUNNING_COMMAND!")
