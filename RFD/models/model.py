@@ -1,6 +1,6 @@
-from .. import dumps
-from .. import path, listdir
-from .. import info, warning
+from json import dumps
+from os import path, listdir
+from logging import info, warning
 
 from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import Dense, Activation, Flatten, Dropout, Conv2D, MaxPooling2D

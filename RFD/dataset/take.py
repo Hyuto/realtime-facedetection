@@ -1,7 +1,7 @@
-from .. import cv2
-from .. import path, mkdir
+import cv2
+from os import path, mkdir
 
-faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+faceCascade = cv2.CascadeClassifier('RFD/models/haarcascade_frontalface_default.xml')
 
 def TakePic(LIST_DIR:list, TO_DIR:str, SIZE:int, N_FRAME:int, model = faceCascade):
     """
@@ -29,7 +29,6 @@ def TakePic(LIST_DIR:list, TO_DIR:str, SIZE:int, N_FRAME:int, model = faceCascad
                     count += 1
                 else:
                     break
-            cv2.destroyAllWindows()
 
 def TakeVid(name:str, DIR:str, SIZE:int, N_FRAME:int, model = faceCascade):
     """

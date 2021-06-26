@@ -1,8 +1,8 @@
 from time import sleep
 from .take import *
-from .. import rmtree
-from .. import path, listdir, mkdir
-from .. import info, warning
+from shutil import rmtree
+from os import path, listdir, mkdir
+from logging import info, warning
 
 def run(CONFIG:dict):
     """

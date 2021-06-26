@@ -6,14 +6,14 @@
   "IMAGE_DATA": {
     "SIZE": 224,
     "N_FRAME_TAKEN": 200,
-    "DIR": "output\\Image Data",
-    "RANDOM_FACE_SRC_DATA_DIR": "RFD\\dataset\\random_data_src"
+    "DIR": "output/Image Data",
+    "RANDOM_FACE_SRC_DATA_DIR": "RFD/dataset/random_data_src"
   },
   "MODEL": {
     "EPOCHS": 5,
     "BATCH_SIZE": 32,
     "VALID_SIZE": 0.2,
-    "DIR": "output\\Models",
+    "DIR": "output/Models",
     "LATEST": null
   }
 }

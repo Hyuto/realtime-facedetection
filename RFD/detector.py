@@ -1,6 +1,6 @@
 import time
-from . import cv2
-from . import info, warning
+import cv2
+from logging import info, warning
 from tensorflow import reshape, argmax
 
 def Live(model, CONFIG:dict):
@@ -19,7 +19,7 @@ def Live(model, CONFIG:dict):
         color_dict[i + 1] = (0, 255, 0)
 
     info('Loading OpenCV model..')
-    faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+    faceCascade = cv2.CascadeClassifier('RFD/models/haarcascade_frontalface_default.xml')
     info('Running live detection. Press "Q" to exit.')
     cap = cv2.VideoCapture(0)
 
