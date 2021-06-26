@@ -1,3 +1,5 @@
 coloredlogs>=13.0
+pillow>=8.0.0
+scipy>=1.6.0
 tensorflow>=2.2.0
 opencv-python>=4.5.2.50
